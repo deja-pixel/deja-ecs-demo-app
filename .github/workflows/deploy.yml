@@ -23,8 +23,7 @@ jobs:
 614388036286.dkr.ecr.us-east-1.amazonaws.com/deja-demo-app:latest
 
       - name: Push Docker image to Amazon ECR
-        run: |
-          docker push 
+        run: docker push 
 614388036286.dkr.ecr.us-east-1.amazonaws.com/deja-demo-app:latest
 
       - name: Deploy to Amazon ECS
@@ -34,4 +33,3 @@ jobs:
           service: deja-demo-app
           cluster: deja-demo-app-cluster
           wait-for-service-stability: true
-
