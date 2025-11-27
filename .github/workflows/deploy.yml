@@ -43,10 +43,9 @@ IMAGE_URI=614388036286.dkr.ecr.us-east-1.amazonaws.com/deja-demo-app:latest
 
       # 6️⃣ Deploy to ECS
       - name: Deploy to ECS
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        with:
-          task-definition: ecs-task-def.json
-          service: deja-demo-app
-          cluster: deja-demo-app-cluster
-          wait-for-service-stability: true
-
+  uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+  with:
+    task-definition: ecs-task-def.json
+    service: deja-demo-app
+    cluster: deja-demo-app-cluster
+    wait-for-service-stability: true
