@@ -13,11 +13,9 @@ jobs:
 "614388036286.dkr.ecr.us-east-1.amazonaws.com/deja-demo-app:latest"
 
     steps:
-      # Step 1: Checkout repository
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Configure AWS credentials
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -25,17 +23,16 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      # Step 3: Log in to Amazon ECR
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
 
-      # Step 4: Build and push Docker image
       - name: Build and push Docker image
         run: |
+          echo "Building Docker image..."
           docker build -t $IMAGE_URI .
+          echo "Pushing Docker image..."
           docker push $IMAGE_URI
 
-      # Step 5: Deploy to ECS
       - name: Deploy to ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
