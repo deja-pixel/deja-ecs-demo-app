@@ -8,6 +8,9 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      IMAGE_URI: 
+614388036286.dkr.ecr.us-east-1.amazonaws.com/deja-demo-app:latest
 
     steps:
       - name: Checkout repository
@@ -26,13 +29,11 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t deja-demo-app .
-          docker tag deja-demo-app:latest 
-614388036286.dkr.ecr.us-east-1.amazonaws.com/deja-demo-app:latest
+          docker tag deja-demo-app:latest $IMAGE_URI
 
       - name: Push Docker image to Amazon ECR
         run: |
-          docker push 
-614388036286.dkr.ecr.us-east-1.amazonaws.com/deja-demo-app:latest
+          docker push $IMAGE_URI
 
       - name: Deploy to Amazon ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
@@ -41,3 +42,4 @@ jobs:
           service: deja-demo-app
           cluster: deja-demo-app-cluster
           wait-for-service-stability: true
+
