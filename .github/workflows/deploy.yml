@@ -10,9 +10,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      # 2. Configure AWS credentials
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -20,9 +22,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
+      # 3. Login to ECR
       - name: Log in to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v2
 
+      # 4. Build and tag Docker image
       - name: Build and tag Docker image
         env:
           IMAGE_URI: 
@@ -31,13 +35,15 @@ jobs:
           docker build -t deja-demo-app .
           docker tag deja-demo-app:latest $IMAGE_URI
 
-      - name: Push Docker image to Amazon ECR
+      # 5. Push Docker image to ECR
+      - name: Push Docker image
         env:
           IMAGE_URI: 
 614388036286.dkr.ecr.us-east-1.amazonaws.com/deja-demo-app:latest
         run: |
           docker push $IMAGE_URI
 
+      # 6. Deploy to ECS
       - name: Deploy to Amazon ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
