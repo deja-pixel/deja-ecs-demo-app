@@ -13,6 +13,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
       - name: Log in to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v2
 
@@ -20,11 +27,12 @@ jobs:
         run: |
           docker build -t deja-demo-app .
           docker tag deja-demo-app:latest 
-'614388036286.dkr.ecr.us-east-1.amazonaws.com/deja-demo-app:latest'
+614388036286.dkr.ecr.us-east-1.amazonaws.com/deja-demo-app:latest
 
       - name: Push Docker image to Amazon ECR
-        run: docker push 
-'614388036286.dkr.ecr.us-east-1.amazonaws.com/deja-demo-app:latest'
+        run: |
+          docker push 
+614388036286.dkr.ecr.us-east-1.amazonaws.com/deja-demo-app:latest
 
       - name: Deploy to Amazon ECS
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
