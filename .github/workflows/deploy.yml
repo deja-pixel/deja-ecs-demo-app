@@ -41,4 +41,3 @@ jobs:
           service: deja-demo-app
           cluster: deja-demo-app-cluster
           wait-for-service-stability: true
-
