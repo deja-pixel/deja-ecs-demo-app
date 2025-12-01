@@ -26,7 +26,7 @@ This project was built alongside **AWS Cloud Practitioner coursework** to practi
 
 ---
 
-Deployment
+## Deployment
 AWS Setup
 
 Create an ECR repository and push your Docker image.
@@ -85,7 +85,7 @@ Use Terraform to manage ECS/ECR infrastructure
 
 Add proper error handling in Node.js app
 
-Author
+## Author 
 
 Deja Pixel
 Learning cloud deployments and automation while completing AWS Cloud Practitioner coursework.
