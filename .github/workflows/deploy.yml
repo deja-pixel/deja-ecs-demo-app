@@ -29,8 +29,7 @@ jobs:
       # 4. Build and tag Docker image
       - name: Build and tag Docker image
         env:
-          IMAGE_URI: 
-614388036286.dkr.ecr.us-east-1.amazonaws.com/deja-demo-app:latest
+          IMAGE_URI: 614388036286.dkr.ecr.us-east-1.amazonaws.com/deja-demo-app:latest
         run: |
           docker build -t deja-demo-app .
           docker tag deja-demo-app:latest $IMAGE_URI
@@ -38,8 +37,7 @@ jobs:
       # 5. Push Docker image to ECR
       - name: Push Docker image
         env:
-          IMAGE_URI: 
-614388036286.dkr.ecr.us-east-1.amazonaws.com/deja-demo-app:latest
+          IMAGE_URI: 614388036286.dkr.ecr.us-east-1.amazonaws.com/deja-demo-app:latest
         run: |
           docker push $IMAGE_URI
 
